@@ -29,10 +29,10 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-
+// 이게 xml파싱해오는 부분인데
 private val ns: String? = null
 
-data class ResponseElement(
+data class ResponseElement( // 받아올 데이터들만 클래스 만들고
         val clearCnt: String?,
         val deathCnt: String?,
         val decideCnt: String?,
@@ -43,6 +43,8 @@ data class ResponseElement(
 
 fun parsingData(setdt : Int): XmlPullParser {
 
+    // 그 캘린더 누른 날짜 기준으로 보여줄건데 초기에는 오늘 날짜를 받아와야해서
+    //오늘날짜 받아오는 부
     var dt : Int = 0
     val cal = Calendar.getInstance()
     dt += cal.get(Calendar.YEAR)
@@ -51,11 +53,12 @@ fun parsingData(setdt : Int): XmlPullParser {
     dt *= 100
     dt += cal.get(Calendar.DATE)
 
+    //이게 오픈 url 설정부분인
     val apiKey = "Tdo19TVJxANWay1HQ1dxcwGA5sJ73wYF%2FVfvQaLyA1iBPWkttg74N9jzEUDGlG6J3ItutuWKuzOutjEblPuQIg%3D%3D"
     var pageNo = "1"
     val numOfRows = "10"
-    val startCreateDt: String = "20200310"
-    var endCreateDt: String = dt.toString()
+    val startCreateDt: String = "20200310" // 이날부터
+    var endCreateDt: String = dt.toString() // 그 캘린더로 선택된 날짜 까지
 
     if(setdt !=0)  endCreateDt  = setdt.toString()
     var keyDecode = URLDecoder.decode(apiKey, "UTF-8")
@@ -67,7 +70,10 @@ fun parsingData(setdt : Int): XmlPullParser {
     urlBuilder.append("&" + URLEncoder.encode("endCreateDt", "UTF-8") + "=" + URLEncoder.encode(endCreateDt, "UTF-8")) /*검색할 생성일 범위의 종료*/
 
     val url: URL = URL(urlBuilder.toString())
+    // url 설정하고
 
+
+    // 구글링해서 퍼오넉라 xmlPArser 생성해주는 부분같음
     val parser: XmlPullParser = Xml.newPullParser()
     parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
     parser.setInput(InputStreamReader(url.openStream(), "UTF-8"))
@@ -77,10 +83,10 @@ fun parsingData(setdt : Int): XmlPullParser {
 }
 
 @Throws(XmlPullParserException::class, IOException::class)
-fun readFeed(parser: XmlPullParser): List<ResponseElement> {
-    val entries = mutableListOf<ResponseElement>()
+fun readFeed(parser: XmlPullParser): List<ResponseElement> { // 이거 Accumulate랑 New에서 doInBackgourd에서 이 함수 호출하는거
+    val entries = mutableListOf<ResponseElement>() // 그 받아오는 데이터 클래스로 리스트 만들고
 
-    parser.require(XmlPullParser.START_TAG, ns, "response")
+    parser.require(XmlPullParser.START_TAG, ns, "response") // 그 xml 데이터 부분 보면 알텐디 <response> 그부분으로 들어가서 아래 코드 태그들로 타고 들어가서 원하는 데이터들 뽑아오는 부분이
     while (parser.next() != XmlPullParser.END_TAG) {
         if (parser.eventType != XmlPullParser.START_TAG) {
             continue
@@ -104,7 +110,7 @@ fun readEntry(parser: XmlPullParser): ResponseElement {
     var stateDt: String? = null
     var stateTime: String? = null
 
-    while (parser.next() != XmlPullParser.END_TAG) {
+    while (parser.next() != XmlPullParser.END_TAG) { // 태그들 보며 이동하면서 원하는 태그들에 데이터 뽑아오는 부
         if (parser.eventType != XmlPullParser.START_TAG) {
             continue
         }
@@ -118,10 +124,11 @@ fun readEntry(parser: XmlPullParser): ResponseElement {
             else -> skip(parser)
         }
     }
-    return ResponseElement(clearCnt, deathCnt, decideCnt, examCnt, stateDt, stateTime)
+    return ResponseElement(clearCnt, deathCnt, decideCnt, examCnt, stateDt, stateTime) // 클래스에 데이터 넣어서 반환
 }
 
 // Processes title tags in the feed.
+// 노가다로 해당 태그 데이터 뽑아오는겨
 @Throws(IOException::class, XmlPullParserException::class)
 fun readStateDt(parser: XmlPullParser): String {
     parser.require(XmlPullParser.START_TAG, ns, "stateDt")

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_new.*
 import java.util.*
 
-class NewActivity : AppCompatActivity() {
+class NewActivity : AppCompatActivity() { // 신규확진 부분 누적확진부분이랑 거의 똑같고 차트부분만 bar차트로 바뀐거 코드는 다 비슷
     var setdt: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

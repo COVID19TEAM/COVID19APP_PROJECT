@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_precaution.summary_btn
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class PrecautionActivity : AppCompatActivity() {
+class PrecautionActivity : AppCompatActivity() { // 예방수칙부
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_precaution)
@@ -26,7 +26,7 @@ class PrecautionActivity : AppCompatActivity() {
             startActivity(Intent(this,NewActivity::class.java))
         }
 
-        val transform = Linkify.TransformFilter(object : Linkify.TransformFilter, (Matcher, String) -> String {
+        val transform = Linkify.TransformFilter(object : Linkify.TransformFilter, (Matcher, String) -> String { // 이건나도 구글링해서 복붙해온건데 그 텍스트 부분 클릭하면 그 url로 이동시키는 부분이여 아래 코드 전부까지
             override fun transformUrl(p0: Matcher?, p1: String?): String {
                 return ""
             }
