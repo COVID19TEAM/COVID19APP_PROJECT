@@ -24,6 +24,7 @@ class SummaryActivity : AppCompatActivity() {
         precaution_btn.setOnClickListener {
             startActivity(Intent(this, PrecautionActivity::class.java))
         }
+        // 아래 3개는 그 분홍버튼 눌렀을때 url 이동시키는 코드 intent로 startActivity가 액티비티 실행하는 부분이라 보여주는거같
         medicine.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&query=" +
                     "%EC%BD%94%EB%A1%9C%EB%82%9819%20%EC%84%A0%EB%B3%84%EC%A7%84%EB%A3%8C%EC%86%8C")) // ACTION_VIEW => 뒤에것을 보여줘라
@@ -34,10 +35,10 @@ class SummaryActivity : AppCompatActivity() {
             startActivity(intent)
         }
         vaccination.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://ncv.kdca.go.kr/content/cardnews_06.html")) // ACTION_VIEW => 뒤에것을 보여줘라
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://ncv.kdca.go.kr/content/cardnews_06.html")) // ACTION_VIEW => 뒤에것을 보여줘라음 , url계속 쌓여서 최신꺼 보여주라는 말일
             startActivity(intent)
         }
-        //특정 문자열에 링크연결
+        //특정 문자열에 링크연결듯해서 클릭하면 그링크로 이동시키는 부분 아래코드 전부 , 노가다여...
         val transform = Linkify.TransformFilter(object : Linkify.TransformFilter, (Matcher, String) -> String {
             override fun transformUrl(p0: Matcher?, p1: String?): String {
                 return ""

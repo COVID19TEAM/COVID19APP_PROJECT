@@ -11,6 +11,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import java.text.SimpleDateFormat
+// 여기는 차트 라인차트랑 바차트 만드는 부분 따로 뺀거야
 
 fun setLineChart(lineChart: LineChart, result: List<ResponseElement>,activity: AccumulateActivity) {
     val Chart = lineChart
