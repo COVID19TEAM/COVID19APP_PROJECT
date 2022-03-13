@@ -43,7 +43,6 @@ class AccumulateActivity : AppCompatActivity() {
             dlg.show() // 캘린 더 보여주는 부분
         }
         XmlParsingTask().execute()
-
     }
     inner class XmlParsingTask() : AsyncTask<Any?, Any?, List<ResponseElement>>() {
         override fun onPostExecute(result: List<ResponseElement>) {

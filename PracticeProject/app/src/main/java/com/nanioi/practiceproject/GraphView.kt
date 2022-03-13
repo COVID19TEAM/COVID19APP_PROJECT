@@ -17,7 +17,6 @@ fun setLineChart(lineChart: LineChart, result: List<ResponseElement>,activity: A
     val Chart = lineChart
     Chart.invalidate()
     Chart.clear()
-
     var decide_value: ArrayList<Entry> = arrayListOf()
     var clear_value: ArrayList<Entry> = arrayListOf()
     var xLabel: ArrayList<String> = arrayListOf()
